@@ -1,0 +1,6 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'>
+  <path d='M12 40c4-10 12-16 20-16s16 6 20 16'/>
+  <path d='M14 52h36'/>
+  <circle cx='22' cy='22' r='6'/>
+  <circle cx='42' cy='22' r='6'/>
+</svg>
