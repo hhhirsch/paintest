@@ -110,21 +110,113 @@ chartCards.forEach((chart) => {
   }
 });
 
-const eligibilityButton = document.getElementById("checkEligibility");
+const eligibilityQuestions = [
+  { id: "q-duration", text: "Haben Sie seit mehr als 3 Monaten neuropathische Schmerzen?", weight: 1 },
+  { id: "q-meds-relief", text: "Bringen Medikamente bislang keine ausreichende Linderung?", weight: 1 },
+  { id: "q-side-effects", text: "Belasten Nebenwirkungen der Medikamente Ihren Alltag?", weight: 1 },
+  { id: "q-long-term", text: "Wünschen Sie sich eine langfristige, alltagsnahe Lösung?", weight: 1 },
+  { id: "q-impairment", text: "Schränken die Schmerzen Schlaf, Bewegung oder Arbeit deutlich ein?", weight: 1 }
+];
+
+const startWizardButton = document.getElementById("startWizard");
+const wizardStart = document.getElementById("wizardStart");
+const wizardStep = document.getElementById("wizardStep");
+const wizardProgress = document.getElementById("wizardProgress");
+const wizardQuestion = document.getElementById("wizardQuestion");
+const answerNoButton = document.getElementById("answerNo");
+const answerYesButton = document.getElementById("answerYes");
+const wizardBackButton = document.getElementById("wizardBack");
+const wizardAnnounce = document.getElementById("wizardAnnounce");
 const eligibilityResult = document.getElementById("eligibilityResult");
 
-eligibilityButton?.addEventListener("click", () => {
-  const checked = document.querySelectorAll('input[name="criteria"]:checked').length;
-  if (checked >= 4) {
+let currentStep = -1;
+const answers = Array(eligibilityQuestions.length).fill(null);
+
+function showStep(stepIndex) {
+  if (!wizardStep || !wizardProgress || !wizardQuestion || !wizardBackButton || !wizardAnnounce) {
+    return;
+  }
+
+  const question = eligibilityQuestions[stepIndex];
+  if (!question) {
+    return;
+  }
+
+  currentStep = stepIndex;
+  wizardProgress.textContent = `Frage ${stepIndex + 1} von ${eligibilityQuestions.length}`;
+  wizardQuestion.textContent = question.text;
+  wizardBackButton.disabled = stepIndex === 0;
+  wizardAnnounce.textContent = `${wizardProgress.textContent}. ${question.text}`;
+}
+
+function showResult() {
+  const score = answers.reduce((sum, answer, index) => {
+    if (!answer) {
+      return sum;
+    }
+
+    return sum + eligibilityQuestions[index].weight;
+  }, 0);
+
+  if (!eligibilityResult || !wizardStep || !wizardStart || !startWizardButton) {
+    return;
+  }
+
+  if (score >= 4) {
     eligibilityResult.textContent = "Sie erfüllen viele Kriterien. Sprechen Sie zeitnah mit einem Zentrum über die Testphase.";
     eligibilityResult.style.color = "#35d7c8";
-  } else if (checked >= 2) {
+  } else if (score >= 2) {
     eligibilityResult.textContent = "Es gibt erste Hinweise auf Eignung. Lassen Sie sich individuell beraten.";
     eligibilityResult.style.color = "#f7b172";
   } else {
     eligibilityResult.textContent = "Aktuell ist die Eignung unklar. Besprechen Sie Ihre Optionen mit Ihrer Ärztin/Ihrem Arzt.";
     eligibilityResult.style.color = "#f58ea7";
   }
+
+  wizardStep.hidden = true;
+  wizardStart.hidden = false;
+  startWizardButton.textContent = "Erneut starten";
+  startWizardButton.focus();
+}
+
+function handleAnswer(answer) {
+  if (currentStep < 0) {
+    return;
+  }
+
+  answers[currentStep] = answer;
+
+  if (currentStep >= eligibilityQuestions.length - 1) {
+    showResult();
+    return;
+  }
+
+  showStep(currentStep + 1);
+}
+
+startWizardButton?.addEventListener("click", () => {
+  answers.fill(null);
+  currentStep = 0;
+
+  if (wizardStart && wizardStep && eligibilityResult) {
+    wizardStart.hidden = true;
+    wizardStep.hidden = false;
+    eligibilityResult.textContent = "";
+  }
+
+  showStep(currentStep);
+  answerYesButton?.focus();
+});
+
+answerYesButton?.addEventListener("click", () => handleAnswer(true));
+answerNoButton?.addEventListener("click", () => handleAnswer(false));
+
+wizardBackButton?.addEventListener("click", () => {
+  if (currentStep <= 0) {
+    return;
+  }
+
+  showStep(currentStep - 1);
 });
 
 const centers = [

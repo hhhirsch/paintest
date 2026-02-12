@@ -180,15 +180,28 @@
           <h2>Prüfen Sie Ihre Eignung für Neurostimulation</h2>
           <p class="lead">Prüfen Sie in wenigen Schritten, ob ein Gespräch über Neurostimulation für Sie sinnvoll sein könnte.</p>
         </div>
-        <form id="eligibilityForm" class="card card--feature checklist reveal">
-          <label><input type="checkbox" name="criteria" value="1"> Ich habe seit mehr als 3 Monaten neuropathische Schmerzen.</label>
-          <label><input type="checkbox" name="criteria" value="1"> Medikamente bringen keine ausreichende Linderung.</label>
-          <label><input type="checkbox" name="criteria" value="1"> Nebenwirkungen der Medikamente belasten mich im Alltag.</label>
-          <label><input type="checkbox" name="criteria" value="1"> Ich wünsche mir eine langfristige, alltagsnahe Lösung.</label>
-          <label><input type="checkbox" name="criteria" value="1"> Meine Schmerzen schränken Schlaf, Bewegung oder Arbeit ein.</label>
-          <button type="button" id="checkEligibility" class="btn btn--primary">Ergebnis anzeigen</button>
-          <p id="eligibilityResult" class="result"></p>
-        </form>
+        <div id="eligibilityForm" class="card card--feature checklist-wizard reveal" aria-labelledby="wizardTitle">
+          <div class="wizard-start" id="wizardStart">
+            <h3 id="wizardTitle">Selbsttest starten</h3>
+            <p>Starten Sie den Kurztest und beantworten Sie jeweils eine Frage pro Schritt.</p>
+            <button type="button" id="startWizard" class="btn btn--primary">Starten</button>
+          </div>
+
+          <div class="wizard-step" id="wizardStep" hidden>
+            <p class="wizard-progress" id="wizardProgress" aria-live="polite"></p>
+            <p class="wizard-question" id="wizardQuestion"></p>
+            <div class="wizard-controls" role="group" aria-label="Antwortoptionen">
+              <button type="button" id="answerNo" class="btn btn--secondary">Nein</button>
+              <button type="button" id="answerYes" class="btn btn--primary">Ja</button>
+            </div>
+            <div class="wizard-nav">
+              <button type="button" id="wizardBack" class="btn btn--ghost">Zurück</button>
+            </div>
+          </div>
+
+          <p id="wizardAnnounce" class="sr-only" aria-live="polite"></p>
+          <p id="eligibilityResult" class="result" aria-live="polite"></p>
+        </div>
       </div>
     </section>
 
