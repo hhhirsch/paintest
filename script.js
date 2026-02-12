@@ -128,6 +128,7 @@ const answerYesButton = document.getElementById("answerYes");
 const wizardBackButton = document.getElementById("wizardBack");
 const wizardAnnounce = document.getElementById("wizardAnnounce");
 const eligibilityResult = document.getElementById("eligibilityResult");
+const eligibilityCta = document.getElementById("eligibilityCta");
 const wizardTransition = document.getElementById("wizardTransition");
 const wizardTransitionPulse = wizardTransition?.querySelector(".nerve-transition__pulse");
 const wizardMotionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -211,6 +212,33 @@ function transitionToStep(stepIndex, focusTarget = null) {
   wizardTransition.classList.add("is-active");
 }
 
+function renderEligibilityCta(variant) {
+  if (!eligibilityCta) {
+    return;
+  }
+
+  const ctaByVariant = {
+    high: `
+      <p class="result-cta__copy">Nächster Schritt: Vereinbaren Sie einen Termin zur strukturierten Abklärung.</p>
+      <div class="result-cta__actions">
+        <a href="#zentren" class="btn btn--primary">Passendes Zentrum finden</a>
+        <a href="#beratung" class="btn btn--secondary">Beratung & Termin anfragen</a>
+      </div>
+    `,
+    medium: `
+      <p class="result-cta__copy">Ein beratendes Gespräch kann helfen, Ihren individuellen Nutzen realistisch einzuordnen.</p>
+      <div class="result-cta__actions">
+        <a href="#beratung" class="btn btn--secondary">Beratungsgespräch vereinbaren</a>
+      </div>
+    `,
+    low: `
+      <p class="result-cta__copy">Empfehlung: Besprechen Sie Ihre Beschwerden in Ruhe mit Ihrer Ärztin oder Ihrem Arzt, bevor Sie weitere Schritte planen.</p>
+    `
+  };
+
+  eligibilityCta.innerHTML = ctaByVariant[variant] || "";
+}
+
 function showResult() {
   const score = answers.reduce((sum, answer, index) => {
     if (!answer) {
@@ -225,14 +253,17 @@ function showResult() {
   }
 
   if (score >= 4) {
-    eligibilityResult.textContent = "Sie erfüllen viele Kriterien. Sprechen Sie zeitnah mit einem Zentrum über die Testphase.";
+    eligibilityResult.textContent = "Ihre Selbsteinschätzung: hohe Eignung. Sie erfüllen viele Kriterien für ein vertiefendes Gespräch zur Neurostimulation.";
     eligibilityResult.style.color = "#35d7c8";
+    renderEligibilityCta("high");
   } else if (score >= 2) {
-    eligibilityResult.textContent = "Es gibt erste Hinweise auf Eignung. Lassen Sie sich individuell beraten.";
+    eligibilityResult.textContent = "Ihre Selbsteinschätzung: mögliche Eignung. Es gibt erste Hinweise, die in einer Beratung individuell eingeordnet werden sollten.";
     eligibilityResult.style.color = "#f7b172";
+    renderEligibilityCta("medium");
   } else {
-    eligibilityResult.textContent = "Aktuell ist die Eignung unklar. Besprechen Sie Ihre Optionen mit Ihrer Ärztin/Ihrem Arzt.";
+    eligibilityResult.textContent = "Ihre Selbsteinschätzung: unklare Eignung. Eine ärztliche Rücksprache hilft, passende nächste Schritte ohne Zeitdruck zu planen.";
     eligibilityResult.style.color = "#f58ea7";
+    renderEligibilityCta("low");
   }
 
   wizardStep.hidden = true;
@@ -275,6 +306,9 @@ startWizardButton?.addEventListener("click", () => {
     wizardStart.hidden = true;
     wizardStep.hidden = false;
     eligibilityResult.textContent = "";
+    if (eligibilityCta) {
+      eligibilityCta.innerHTML = "";
+    }
   }
 
   transitionToStep(currentStep, answerYesButton);
