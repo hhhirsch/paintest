@@ -13,7 +13,7 @@
   <header class="hero">
     <nav class="top-nav container">
       <div class="logo">Neurolife</div>
-      <a class="button button-light" href="#beratung">Beratung anfragen</a>
+      <a class="btn btn--ghost" href="#beratung">Beratung anfragen</a>
     </nav>
     <div class="container hero-content">
       <p class="eyebrow">Neuropathischer Schmerz • Elektrostimulation</p>
@@ -23,8 +23,8 @@
         interaktiven Tools und konkreten nächsten Schritten zur Neurostimulation.
       </p>
       <div class="hero-actions">
-        <a href="#checkliste" class="button">Bin ich geeignet?</a>
-        <a href="#zentren" class="button button-secondary">Zentrum finden</a>
+        <a href="#checkliste" class="btn btn--primary">Bin ich geeignet?</a>
+        <a href="#zentren" class="btn btn--secondary">Zentrum finden</a>
       </div>
     </div>
   </header>
@@ -65,7 +65,7 @@
           <label><input type="checkbox" name="criteria" value="1"> Nebenwirkungen der Medikamente belasten mich im Alltag.</label>
           <label><input type="checkbox" name="criteria" value="1"> Ich wünsche mir eine langfristige, alltagsnahe Lösung.</label>
           <label><input type="checkbox" name="criteria" value="1"> Meine Schmerzen schränken Schlaf, Bewegung oder Arbeit ein.</label>
-          <button type="button" id="checkEligibility" class="button">Ergebnis anzeigen</button>
+          <button type="button" id="checkEligibility" class="btn btn--primary">Ergebnis anzeigen</button>
           <p id="eligibilityResult" class="result"></p>
         </form>
       </div>
@@ -128,15 +128,19 @@
       <article class="card card--split">
         <div>
           <h3>Ihre Frage an unser Expertenteam</h3>
-          <form id="expertForm" class="stack">
-            <label>Frage
-              <textarea required placeholder="Welche Fragen haben Sie zur Neurostimulation?"></textarea>
-            </label>
-            <label>E-Mail (optional)
-              <input type="email" placeholder="name@beispiel.de">
-            </label>
-            <button class="button" type="submit">Frage senden</button>
+          <form id="expertForm" class="form-stack">
+            <div class="form-field">
+              <label for="expertQuestion" class="form-label">Frage</label>
+              <textarea id="expertQuestion" required placeholder="Welche Fragen haben Sie zur Neurostimulation?"></textarea>
+              <p class="form-helper">Beschreiben Sie kurz Ihre aktuelle Situation.</p>
+            </div>
+            <div class="form-field">
+              <label for="expertEmail" class="form-label">E-Mail (optional)</label>
+              <input id="expertEmail" type="email" placeholder="name@beispiel.de">
+            </div>
+            <button class="btn btn--primary" type="submit">Frage senden</button>
             <p id="expertMessage" class="result"></p>
+            <p class="form-error" aria-live="polite"></p>
           </form>
         </div>
         <div>
@@ -193,19 +197,21 @@
           <h2>Beratung anfragen</h2>
           <p class="lead">Vereinbaren Sie einen Termin – wir kontaktieren Sie für ein unverbindliches Gespräch.</p>
         </div>
-        <form id="consultingForm" class="card card--feature consult-form">
-          <label>Name <input type="text" required></label>
-          <label>Telefon <input type="tel" required></label>
-          <label>E-Mail <input type="email" required></label>
-          <label>Ich bin
-            <select>
+        <form id="consultingForm" class="card card--feature form-grid">
+          <div class="form-field"><label for="consultName" class="form-label">Name</label><input id="consultName" type="text" required placeholder="Max Mustermann"></div>
+          <div class="form-field"><label for="consultPhone" class="form-label">Telefon</label><input id="consultPhone" type="tel" required placeholder="+49 ..."></div>
+          <div class="form-field"><label for="consultEmail" class="form-label">E-Mail</label><input id="consultEmail" type="email" required placeholder="name@beispiel.de"></div>
+          <div class="form-field">
+            <label for="consultRole" class="form-label">Ich bin</label>
+            <select id="consultRole">
               <option>Patient/in</option>
               <option>Angehörige/r</option>
               <option>Ärztin/Arzt</option>
             </select>
-          </label>
-          <button type="submit" class="button">Kontakt anfordern</button>
+          </div>
+          <button type="submit" class="btn btn--primary">Kontakt anfordern</button>
           <p id="consultingMessage" class="result"></p>
+          <p class="form-helper">Wir melden uns in der Regel innerhalb von 24 Stunden.</p>
         </form>
       </div>
     </section>
