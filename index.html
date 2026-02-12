@@ -10,20 +10,29 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="hero">
-    <nav class="top-nav container">
-      <div class="logo">Neurolife</div>
-      <a class="btn btn--ghost" href="#beratung">Beratung anfragen</a>
+  <header class="hero" id="top">
+    <nav class="top-nav" id="topNav">
+      <div class="container top-nav-inner">
+        <a class="logo" href="#top">Neurolife</a>
+        <div class="nav-links" aria-label="Sektionen">
+          <a href="#checkliste">Eignung</a>
+          <a href="#zentren">Zentren</a>
+          <a href="#expert">Expertenrat</a>
+          <a href="#beratung">Kontakt</a>
+        </div>
+      </div>
     </nav>
     <div class="container hero-content">
       <p class="eyebrow">Neuropathischer Schmerz • Elektrostimulation</p>
-      <h1>Verstehen. Entscheiden. Aktiv werden.</h1>
+      <h1>Ihre Orientierung zur Neurostimulation – klar, medizinisch geprüft und direkt nutzbar.</h1>
       <p class="lead">
-        Eine zentrale Plattform für <strong>Patienten</strong>, <strong>Angehörige</strong> und <strong>Ärzte</strong> – mit klaren Informationen,
-        interaktiven Tools und konkreten nächsten Schritten zur Neurostimulation.
+        Verstehen Sie Ursachen und Therapieoptionen bei neuropathischen Schmerzen in wenigen Minuten.
+        Prüfen Sie Ihre Eignung strukturiert und finden Sie schnell passende Behandlungszentren in Ihrer Region.
+        So gehen Sie gut informiert in das nächste Gespräch mit Ihrem Behandlungsteam.
       </p>
+      <p class="trust-badge"><strong>Medizinisch geprüft</strong> • Stand: März 2026</p>
       <div class="hero-actions">
-        <a href="#checkliste" class="btn btn--primary">Bin ich geeignet?</a>
+        <a href="#checkliste" class="btn btn--primary">Eignung testen</a>
         <a href="#zentren" class="btn btn--secondary">Zentrum finden</a>
       </div>
     </div>
@@ -121,105 +130,57 @@
 
     <section class="section container" id="expert">
       <div class="section-header">
-        <p class="eyebrow">Fragen & Antworten</p>
-        <h2>Ask the Expert</h2>
-        <p class="lead">Direkte Fragen an das Expertenteam sowie die wichtigsten Antworten auf häufige Anliegen.</p>
+        <p class="eyebrow">Expertenrat</p>
+        <h2>Fragen an medizinisches Fachpersonal</h2>
+        <p class="lead">Stellen Sie Ihre Fragen strukturiert und erhalten Sie eine fundierte Rückmeldung zu Therapieoptionen.</p>
       </div>
-      <article class="card card--split">
-        <div>
-          <h3>Ihre Frage an unser Expertenteam</h3>
-          <form id="expertForm" class="form-stack">
-            <div class="form-field">
-              <label for="expertQuestion" class="form-label">Frage</label>
-              <textarea id="expertQuestion" required placeholder="Welche Fragen haben Sie zur Neurostimulation?"></textarea>
-              <p class="form-helper">Beschreiben Sie kurz Ihre aktuelle Situation.</p>
-            </div>
-            <div class="form-field">
-              <label for="expertEmail" class="form-label">E-Mail (optional)</label>
-              <input id="expertEmail" type="email" placeholder="name@beispiel.de">
-            </div>
-            <button class="btn btn--primary" type="submit">Frage senden</button>
-            <p id="expertMessage" class="result"></p>
-            <p class="form-error" aria-live="polite"></p>
-          </form>
+      <form id="expertForm" class="card card--feature form-stack">
+        <div class="form-field">
+          <label class="form-label" for="expertName">Name</label>
+          <input id="expertName" type="text" required>
         </div>
-        <div>
-          <h3>Häufige Fragen</h3>
-          <details><summary>Ist die Neurostimulation reversibel?</summary><p>Ja. Das System kann angepasst oder entfernt werden.</p></details>
-          <details><summary>Wie schnell spüre ich eine Wirkung?</summary><p>Häufig bereits in der Testphase, individuell unterschiedlich.</p></details>
-          <details><summary>Kann ich Medikamente reduzieren?</summary><p>Viele Patienten berichten eine deutliche Reduktion – in Abstimmung mit dem Arzt.</p></details>
+        <div class="form-field">
+          <label class="form-label" for="expertQuestion">Ihre Frage</label>
+          <textarea id="expertQuestion" required></textarea>
         </div>
-      </article>
-    </section>
-
-    <section class="section section-muted" id="stories">
-      <div class="container">
-        <div class="section-header">
-          <p class="eyebrow">Erfahrungen</p>
-          <h2>Patientenstorys</h2>
-          <p class="lead">Echte Perspektiven aus dem Alltag mit neuropathischem Schmerz und Neurostimulation.</p>
-        </div>
-        <div class="grid-2">
-          <article class="card">
-            <h3>Video: Zurück in den Alltag</h3>
-            <div class="video-placeholder">Video-Story (Platzhalter)</div>
-            <p>Wie Herr K. nach Jahren starker Schmerzen wieder aktiv am Familienleben teilnimmt.</p>
-          </article>
-          <article class="card">
-            <h3>Blogbeiträge</h3>
-            <ul class="blog-list">
-              <li><a href="#">„Weniger Schmerz, besserer Schlaf“ – Erfahrungsbericht von Frau M.</a></li>
-              <li><a href="#">5 Fragen, die ich meinem Arzt vor der Implantation gestellt habe</a></li>
-              <li><a href="#">Was Angehörige in der Entscheidungsphase tun können</a></li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section container" id="materialien">
-      <div class="section-header">
-        <p class="eyebrow">Downloads</p>
-        <h2>Materialien für das Arztgespräch</h2>
-        <p class="lead">Praktische Unterlagen für strukturierte Gespräche mit dem Behandlungsteam.</p>
-      </div>
-      <div class="grid-3">
-        <article class="card"><h3>Checkliste zum Mitnehmen</h3><p>Symptome, bisherige Therapien und persönliche Therapieziele kompakt erfassen.</p><a href="#" class="text-link">PDF herunterladen</a></article>
-        <article class="card"><h3>Fragenkatalog</h3><p>Die wichtigsten Fragen zu Chancen, Risiken, Testphase und Nachsorge.</p><a href="#" class="text-link">PDF herunterladen</a></article>
-        <article class="card"><h3>Ärzte-Infoblatt</h3><p>Kurzübersicht für Fachpersonal mit Indikationen und Versorgungsweg.</p><a href="#" class="text-link">PDF herunterladen</a></article>
-      </div>
+        <button class="btn btn--primary" type="submit">Frage senden</button>
+        <p id="expertMessage" class="result"></p>
+      </form>
     </section>
 
     <section class="section section-cta" id="beratung">
       <div class="container">
-        <div class="section-header">
-          <p class="eyebrow">Nächster Schritt</p>
-          <h2>Beratung anfragen</h2>
-          <p class="lead">Vereinbaren Sie einen Termin – wir kontaktieren Sie für ein unverbindliches Gespräch.</p>
-        </div>
-        <form id="consultingForm" class="card card--feature form-grid">
-          <div class="form-field"><label for="consultName" class="form-label">Name</label><input id="consultName" type="text" required placeholder="Max Mustermann"></div>
-          <div class="form-field"><label for="consultPhone" class="form-label">Telefon</label><input id="consultPhone" type="tel" required placeholder="+49 ..."></div>
-          <div class="form-field"><label for="consultEmail" class="form-label">E-Mail</label><input id="consultEmail" type="email" required placeholder="name@beispiel.de"></div>
-          <div class="form-field">
-            <label for="consultRole" class="form-label">Ich bin</label>
-            <select id="consultRole">
-              <option>Patient/in</option>
-              <option>Angehörige/r</option>
-              <option>Ärztin/Arzt</option>
-            </select>
+        <div class="card card--split">
+          <div>
+            <p class="eyebrow">Nächster Schritt</p>
+            <h2>Beratung anfragen</h2>
+            <p class="lead">Vereinbaren Sie ein unverbindliches Gespräch zur Einordnung Ihrer Situation und möglicher Wege zur Neurostimulation.</p>
           </div>
-          <button type="submit" class="btn btn--primary">Kontakt anfordern</button>
-          <p id="consultingMessage" class="result"></p>
-          <p class="form-helper">Wir melden uns in der Regel innerhalb von 24 Stunden.</p>
-        </form>
+          <form id="consultingForm" class="form-grid">
+            <div class="form-field">
+              <label class="form-label" for="consultingName">Name</label>
+              <input id="consultingName" type="text" required>
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="consultingEmail">E-Mail</label>
+              <input id="consultingEmail" type="email" required>
+            </div>
+            <button class="btn btn--primary" type="submit">Beratung anfragen</button>
+            <p id="consultingMessage" class="result"></p>
+          </form>
+        </div>
       </div>
     </section>
   </main>
 
+  <div class="mobile-cta-bar" aria-label="Schnellaktionen">
+    <a href="#checkliste" class="btn btn--primary">Eignung testen</a>
+    <a href="#zentren" class="btn btn--secondary">Zentrum finden</a>
+  </div>
+
   <footer class="footer">
     <div class="container">
-      <p>© 2026 Neurolife – Informationsplattform zur Behandlung neuropathischer Schmerzen mit Elektrostimulation.</p>
+      <p>© 2026 Neurolife • Demo-Konzept zur Patientenaufklärung</p>
     </div>
   </footer>
 
