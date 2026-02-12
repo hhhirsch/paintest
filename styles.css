@@ -339,6 +339,8 @@ textarea:focus-visible,
   border-radius: var(--radius-sm);
   border: 1px solid color-mix(in srgb, var(--teal) 34%, var(--border));
   background: color-mix(in srgb, var(--teal) 10%, transparent);
+  transform: translateZ(0);
+  transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease, background-color 0.24s ease;
 }
 
 .icon-wrap .icon-line {
@@ -349,6 +351,33 @@ textarea:focus-visible,
   stroke-width: 2.25;
   stroke-linecap: round;
   stroke-linejoin: round;
+  transition: stroke 0.24s ease;
+}
+
+.icon-card:hover .icon-wrap,
+.icon-card:focus-within .icon-wrap {
+  transform: scale(1.05);
+  border-color: color-mix(in srgb, var(--primary) 50%, var(--teal));
+  background: color-mix(in srgb, var(--teal) 16%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--primary) 42%, transparent), 0 0 22px color-mix(in srgb, var(--teal) 28%, transparent);
+}
+
+.icon-card:hover .icon-line,
+.icon-card:focus-within .icon-line,
+.section-marker .icon-line {
+  stroke: color-mix(in srgb, var(--primary) 40%, var(--teal));
+}
+
+.section-marker {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.section-marker .icon-line {
+  width: 1.05rem;
+  height: 1.05rem;
+  stroke-width: 2.35;
 }
 
 .evidence-wrap { display: grid; place-items: center; }
@@ -551,5 +580,18 @@ textarea::placeholder { color: color-mix(in srgb, var(--muted) 75%, white 5%); }
     background: color-mix(in srgb, var(--surface) 94%, transparent);
     border-top: 1px solid color-mix(in srgb, var(--teal) 24%, var(--border));
     backdrop-filter: blur(10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icon-wrap,
+  .icon-wrap .icon-line {
+    transition: none;
+  }
+
+  .icon-card:hover .icon-wrap,
+  .icon-card:focus-within .icon-wrap {
+    transform: none;
+    box-shadow: none;
   }
 }
