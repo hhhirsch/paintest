@@ -128,9 +128,21 @@ const answerYesButton = document.getElementById("answerYes");
 const wizardBackButton = document.getElementById("wizardBack");
 const wizardAnnounce = document.getElementById("wizardAnnounce");
 const eligibilityResult = document.getElementById("eligibilityResult");
+const wizardTransition = document.getElementById("wizardTransition");
+const wizardTransitionPulse = wizardTransition?.querySelector(".nerve-transition__pulse");
+const wizardMotionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 let currentStep = -1;
+let isWizardTransitioning = false;
+let queuedStep = null;
+let queuedFocusTarget = null;
 const answers = Array(eligibilityQuestions.length).fill(null);
+
+function setWizardControlsDisabled(disabled) {
+  answerNoButton?.toggleAttribute("disabled", disabled);
+  answerYesButton?.toggleAttribute("disabled", disabled);
+  wizardBackButton?.toggleAttribute("disabled", disabled || currentStep <= 0);
+}
 
 function showStep(stepIndex) {
   if (!wizardStep || !wizardProgress || !wizardQuestion || !wizardBackButton || !wizardAnnounce) {
@@ -147,6 +159,56 @@ function showStep(stepIndex) {
   wizardQuestion.textContent = question.text;
   wizardBackButton.disabled = stepIndex === 0;
   wizardAnnounce.textContent = `${wizardProgress.textContent}. ${question.text}`;
+}
+
+function runQueuedStep() {
+  if (queuedStep === null) {
+    return;
+  }
+
+  const nextStep = queuedStep;
+  const focusTarget = queuedFocusTarget;
+  queuedStep = null;
+  queuedFocusTarget = null;
+  transitionToStep(nextStep, focusTarget);
+}
+
+function transitionToStep(stepIndex, focusTarget = null) {
+  const question = eligibilityQuestions[stepIndex];
+  if (!question) {
+    return;
+  }
+
+  if (isWizardTransitioning) {
+    queuedStep = stepIndex;
+    queuedFocusTarget = focusTarget;
+    return;
+  }
+
+  if (wizardMotionPreference.matches || !wizardTransition || !wizardTransitionPulse) {
+    showStep(stepIndex);
+    focusTarget?.focus();
+    return;
+  }
+
+  isWizardTransitioning = true;
+  setWizardControlsDisabled(true);
+  wizardTransition.hidden = false;
+  wizardTransition.classList.remove("is-active");
+  void wizardTransition.offsetWidth;
+
+  const completeTransition = () => {
+    wizardTransition.classList.remove("is-active");
+    wizardTransition.hidden = true;
+    showStep(stepIndex);
+    setWizardControlsDisabled(false);
+    isWizardTransitioning = false;
+    focusTarget?.focus();
+    runQueuedStep();
+  };
+
+  wizardTransitionPulse.addEventListener("animationend", completeTransition, { once: true });
+  wizardTransition.classList.add("is-active");
 }
 
 function showResult() {
@@ -175,12 +237,19 @@ function showResult() {
 
   wizardStep.hidden = true;
   wizardStart.hidden = false;
+  wizardTransition?.classList.remove("is-active");
+  if (wizardTransition) {
+    wizardTransition.hidden = true;
+  }
+  isWizardTransitioning = false;
+  queuedStep = null;
+  queuedFocusTarget = null;
   startWizardButton.textContent = "Erneut starten";
   startWizardButton.focus();
 }
 
 function handleAnswer(answer) {
-  if (currentStep < 0) {
+  if (currentStep < 0 || isWizardTransitioning) {
     return;
   }
 
@@ -191,10 +260,14 @@ function handleAnswer(answer) {
     return;
   }
 
-  showStep(currentStep + 1);
+  transitionToStep(currentStep + 1, answerYesButton);
 }
 
 startWizardButton?.addEventListener("click", () => {
+  if (isWizardTransitioning) {
+    return;
+  }
+
   answers.fill(null);
   currentStep = 0;
 
@@ -204,19 +277,18 @@ startWizardButton?.addEventListener("click", () => {
     eligibilityResult.textContent = "";
   }
 
-  showStep(currentStep);
-  answerYesButton?.focus();
+  transitionToStep(currentStep, answerYesButton);
 });
 
 answerYesButton?.addEventListener("click", () => handleAnswer(true));
 answerNoButton?.addEventListener("click", () => handleAnswer(false));
 
 wizardBackButton?.addEventListener("click", () => {
-  if (currentStep <= 0) {
+  if (currentStep <= 0 || isWizardTransitioning) {
     return;
   }
 
-  showStep(currentStep - 1);
+  transitionToStep(currentStep - 1, answerYesButton);
 });
 
 const centers = [
