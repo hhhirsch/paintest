@@ -145,6 +145,12 @@ function setWizardControlsDisabled(disabled) {
   wizardBackButton?.toggleAttribute("disabled", disabled || currentStep <= 0);
 }
 
+function updateAnswerSelection(stepIndex) {
+  const answer = answers[stepIndex];
+  answerNoButton?.classList.toggle("is-selected", answer === false);
+  answerYesButton?.classList.toggle("is-selected", answer === true);
+}
+
 function showStep(stepIndex) {
   if (!wizardStep || !wizardProgress || !wizardQuestion || !wizardBackButton || !wizardAnnounce) {
     return;
@@ -160,6 +166,7 @@ function showStep(stepIndex) {
   wizardQuestion.textContent = question.text;
   wizardBackButton.disabled = stepIndex === 0;
   wizardAnnounce.textContent = `${wizardProgress.textContent}. ${question.text}`;
+  updateAnswerSelection(stepIndex);
 }
 
 function runQueuedStep() {
@@ -285,6 +292,7 @@ function handleAnswer(answer) {
   }
 
   answers[currentStep] = answer;
+  updateAnswerSelection(currentStep);
 
   if (currentStep >= eligibilityQuestions.length - 1) {
     showResult();
@@ -301,6 +309,7 @@ startWizardButton?.addEventListener("click", () => {
 
   answers.fill(null);
   currentStep = 0;
+  updateAnswerSelection(currentStep);
 
   if (wizardStart && wizardStep && eligibilityResult) {
     wizardStart.hidden = true;

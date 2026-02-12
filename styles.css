@@ -631,6 +631,11 @@ textarea:focus-visible,
   gap: var(--space-3);
 }
 
+.wizard-start[hidden],
+.wizard-step[hidden] {
+  display: none !important;
+}
+
 .wizard-start p {
   margin: 0;
   color: var(--muted);
@@ -706,6 +711,12 @@ textarea:focus-visible,
 .wizard-controls .btn,
 .wizard-nav .btn {
   min-width: 120px;
+}
+
+.wizard-controls .btn.is-selected {
+  --btn-bg: linear-gradient(180deg, color-mix(in srgb, var(--primary) 84%, #fff), var(--primary));
+  --btn-color: #1b1109;
+  --btn-border: transparent;
 }
 
 .wizard-nav {
