@@ -27,3 +27,33 @@
 - **Dekorative Elemente** unterstützen nur Stimmung/Branding und können mit leerem `alt=""` versehen werden.
 - **Inhaltlich relevante Grafiken** (z. B. Verlauf, Kennzahlen, Therapiepfade) benötigen präzise `alt`-Texte oder `figcaption`.
 - Wenn ein Asset Informationen transportiert, muss die Aussage auch ohne Bild verständlich bleiben (Caption oder begleitender Text).
+
+## Header-Assets und MIME-Checks
+
+Für `index.html` gilt:
+- Im `<head>` dürfen `script src="..."` nur auf JavaScript-Dateien zeigen.
+- `link rel="stylesheet" href="..."` darf nur CSS referenzieren.
+- Bilder, Fonts oder andere Binärdateien dürfen **nicht** als Script/Stylesheet eingebunden werden.
+
+### Automatischer Check
+```bash
+node tools/validate-head-assets.mjs
+```
+
+### MIME-Type am Server prüfen
+Beispiel mit lokalem Server auf Port `8080`:
+```bash
+curl -I http://localhost:8080/styles.css
+curl -I http://localhost:8080/script.js
+```
+Erwartung:
+- `styles.css` → `Content-Type: text/css`
+- `script.js` → `Content-Type: text/javascript` (oder `application/javascript`)
+
+Für Bilder/Fonts entsprechend:
+- Bilder: `image/*`
+- Fonts: `font/*`
+
+### Browser-Cache leeren und retesten
+- Hard-Reload: `Ctrl+Shift+R` (Windows/Linux) oder `Cmd+Shift+R` (macOS).
+- Alternativ DevTools öffnen und „Disable cache“ beim Neuladen aktivieren.
