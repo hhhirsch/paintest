@@ -1,12 +1,48 @@
 const topNav = document.getElementById("topNav");
+const navToggle = document.getElementById("navToggle");
+const navLinks = document.getElementById("navLinks");
 
 function syncTopNavState() {
   const isScrolled = window.scrollY > 20;
   topNav?.classList.toggle("is-scrolled", isScrolled);
 }
 
+function closeMobileNav() {
+  topNav?.classList.remove("is-open");
+  navToggle?.classList.remove("is-open");
+  navToggle?.setAttribute("aria-expanded", "false");
+}
+
+navToggle?.addEventListener("click", () => {
+  const willOpen = !topNav?.classList.contains("is-open");
+  topNav?.classList.toggle("is-open", willOpen);
+  navToggle.classList.toggle("is-open", willOpen);
+  navToggle.setAttribute("aria-expanded", String(willOpen));
+});
+
+navLinks?.querySelectorAll("a").forEach((link) => {
+  link.addEventListener("click", closeMobileNav);
+});
+
 window.addEventListener("scroll", syncTopNavState, { passive: true });
 syncTopNavState();
+
+const evidenceRing = document.querySelector(".evidence-ring");
+if (evidenceRing) {
+  const value = Number(evidenceRing.dataset.value || 83);
+  const safeValue = Math.max(0, Math.min(100, value));
+  evidenceRing.style.setProperty("--value", safeValue);
+
+  const number = evidenceRing.querySelector(".ring-number");
+  if (number) {
+    number.textContent = `${safeValue}%`;
+  }
+
+  const caption = evidenceRing.querySelector(".ring-caption");
+  if (caption && evidenceRing.dataset.caption) {
+    caption.textContent = evidenceRing.dataset.caption;
+  }
+}
 
 const eligibilityButton = document.getElementById("checkEligibility");
 const eligibilityResult = document.getElementById("eligibilityResult");
@@ -15,13 +51,13 @@ eligibilityButton?.addEventListener("click", () => {
   const checked = document.querySelectorAll('input[name="criteria"]:checked').length;
   if (checked >= 4) {
     eligibilityResult.textContent = "Sie erfüllen viele Kriterien. Sprechen Sie zeitnah mit einem Zentrum über die Testphase.";
-    eligibilityResult.style.color = "#1b7d60";
+    eligibilityResult.style.color = "#35d7c8";
   } else if (checked >= 2) {
     eligibilityResult.textContent = "Es gibt erste Hinweise auf Eignung. Lassen Sie sich individuell beraten.";
-    eligibilityResult.style.color = "#7b5d00";
+    eligibilityResult.style.color = "#f7b172";
   } else {
     eligibilityResult.textContent = "Aktuell ist die Eignung unklar. Besprechen Sie Ihre Optionen mit Ihrer Ärztin/Ihrem Arzt.";
-    eligibilityResult.style.color = "#8a2b3e";
+    eligibilityResult.style.color = "#f58ea7";
   }
 });
 
@@ -37,9 +73,9 @@ const citySelect = document.getElementById("citySelect");
 const centerList = document.getElementById("centerList");
 
 function renderCenters(region) {
-  const filtered = region === "alle" ? centers : centers.filter(c => c.region === region);
+  const filtered = region === "alle" ? centers : centers.filter((c) => c.region === region);
   centerList.innerHTML = filtered
-    .map(c => `<li><strong>${c.name}</strong> – Region ${c.region}</li>`)
+    .map((c) => `<li><strong>${c.name}</strong> – Region ${c.region}</li>`)
     .join("");
 }
 
@@ -76,7 +112,7 @@ const expertMessage = document.getElementById("expertMessage");
 expertForm?.addEventListener("submit", (event) => {
   event.preventDefault();
   expertMessage.textContent = "Danke! Ihre Frage wurde an unser Expertenteam gesendet.";
-  expertMessage.style.color = "#1b7d60";
+  expertMessage.style.color = "#35d7c8";
   expertForm.reset();
 });
 
@@ -85,6 +121,6 @@ const consultingMessage = document.getElementById("consultingMessage");
 consultingForm?.addEventListener("submit", (event) => {
   event.preventDefault();
   consultingMessage.textContent = "Vielen Dank! Wir melden uns zeitnah zur Terminabstimmung.";
-  consultingMessage.style.color = "#1b7d60";
+  consultingMessage.style.color = "#35d7c8";
   consultingForm.reset();
 });
