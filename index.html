@@ -10,6 +10,36 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <svg class="icon-symbols" aria-hidden="true" focusable="false">
+    <symbol id="icon-listen" viewBox="0 0 64 64">
+      <path d="M32 8a20 20 0 0 0-20 20v10a8 8 0 0 0 8 8h4V30a8 8 0 1 1 16 0v16h4a8 8 0 0 0 8-8V28A20 20 0 0 0 32 8Z"/>
+      <path d="M24 50c2.7 3.3 6 6 8 6s5.3-2.7 8-6"/>
+    </symbol>
+    <symbol id="icon-understand" viewBox="0 0 64 64">
+      <circle cx="32" cy="32" r="20"/>
+      <path d="M32 18v14l9 8"/>
+    </symbol>
+    <symbol id="icon-adapt" viewBox="0 0 64 64">
+      <path d="M12 40c4-10 12-16 20-16s16 6 20 16"/>
+      <path d="M14 52h36"/>
+      <circle cx="22" cy="22" r="6"/>
+      <circle cx="42" cy="22" r="6"/>
+    </symbol>
+    <symbol id="icon-evidenz" viewBox="0 0 64 64">
+      <path d="M14 16h36v32H14z"/>
+      <path d="M22 26h20M22 34h13M22 42h8"/>
+    </symbol>
+    <symbol id="icon-checkliste" viewBox="0 0 64 64">
+      <rect x="14" y="10" width="36" height="44" rx="6"/>
+      <path d="M24 22h16M24 32h16M24 42h10"/>
+      <path d="M18 22l2 2 3-4M18 32l2 2 3-4M18 42l2 2 3-4"/>
+    </symbol>
+    <symbol id="icon-zentren" viewBox="0 0 64 64">
+      <path d="M32 56s16-13.6 16-28a16 16 0 1 0-32 0c0 14.4 16 28 16 28Z"/>
+      <circle cx="32" cy="28" r="6"/>
+    </symbol>
+  </svg>
+
   <header class="hero" id="top">
     <nav class="top-nav" id="topNav">
       <div class="container top-nav-inner">
@@ -55,30 +85,32 @@
       <div class="grid-3 icon-grid">
         <article class="card icon-card">
           <div class="icon-wrap" aria-hidden="true">
-            <svg class="icon-line" viewBox="0 0 64 64"><path d="M32 8a20 20 0 0 0-20 20v10a8 8 0 0 0 8 8h4V30a8 8 0 1 1 16 0v16h4a8 8 0 0 0 8-8V28A20 20 0 0 0 32 8Z"/><path d="M24 50c2.7 3.3 6 6 8 6s5.3-2.7 8-6"/></svg>
+            <svg class="icon-line" viewBox="0 0 64 64"><use href="#icon-listen"></use></svg>
           </div>
-          <h3>Listen</h3>
-          <p>Ihre individuelle Schmerzgeschichte wird strukturiert erfasst – verständlich und ohne Fachjargon.</p>
+          <h3 class="icon-title">Listen</h3>
+          <p class="icon-benefit">Symptome werden in 2 Minuten strukturiert und ohne Fachjargon priorisiert.</p>
+          <p class="icon-metric">Ø 6 Kernfragen bis zur ersten Einordnung</p>
         </article>
         <article class="card icon-card">
           <div class="icon-wrap" aria-hidden="true">
-            <svg class="icon-line" viewBox="0 0 64 64"><circle cx="32" cy="32" r="20"/><path d="M32 18v14l9 8"/></svg>
+            <svg class="icon-line" viewBox="0 0 64 64"><use href="#icon-understand"></use></svg>
           </div>
-          <h3>Understand</h3>
-          <p>Sie sehen relevante Therapiepfade und Zeitverläufe auf einen Blick, inkl. Nutzen und Grenzen.</p>
+          <h3 class="icon-title">Understand</h3>
+          <p class="icon-benefit">Therapiepfade werden als klare Optionen mit Nutzen, Aufwand und Grenzen gezeigt.</p>
+          <p class="icon-metric">3 empfohlene nächste Schritte pro Profil</p>
         </article>
         <article class="card icon-card">
           <div class="icon-wrap" aria-hidden="true">
-            <svg class="icon-line" viewBox="0 0 64 64"><path d="M12 40c4-10 12-16 20-16s16 6 20 16"/><path d="M14 52h36"/><circle cx="22" cy="22" r="6"/><circle cx="42" cy="22" r="6"/></svg>
+            <svg class="icon-line" viewBox="0 0 64 64"><use href="#icon-adapt"></use></svg>
           </div>
-          <h3>Adapt</h3>
-          <p>Auf Basis Ihrer Rückmeldungen werden nächste Schritte und geeignete Zentren gezielt priorisiert.</p>
+          <h3 class="icon-title">Adapt</h3>
+          <p class="icon-benefit">Empfehlungen passen sich Ihren Rückmeldungen und regionalen Optionen laufend an.</p>
         </article>
       </div>
     </section>
 
     <section class="section container" id="evidenz">
-      <div class="section-header">
+      <div class="section-header reveal">
         <p class="eyebrow eyebrow--orange">EVIDENZ</p>
         <h2>Proven Evidence für den Alltag</h2>
         <p class="lead">Anschauliche Kennzahlen helfen, den erwartbaren Nutzen einer Neurostimulation realistisch einzuordnen.</p>
@@ -124,12 +156,12 @@
 
     <section class="section section--tint" id="checkliste">
       <div class="container">
-        <div class="section-header">
+        <div class="section-header reveal">
           <p class="eyebrow">Selbsttest</p>
           <h2>Prüfen Sie Ihre Eignung für Neurostimulation</h2>
           <p class="lead">Prüfen Sie in wenigen Schritten, ob ein Gespräch über Neurostimulation für Sie sinnvoll sein könnte.</p>
         </div>
-        <form id="eligibilityForm" class="card card--feature checklist">
+        <form id="eligibilityForm" class="card card--feature checklist reveal">
           <label><input type="checkbox" name="criteria" value="1"> Ich habe seit mehr als 3 Monaten neuropathische Schmerzen.</label>
           <label><input type="checkbox" name="criteria" value="1"> Medikamente bringen keine ausreichende Linderung.</label>
           <label><input type="checkbox" name="criteria" value="1"> Nebenwirkungen der Medikamente belasten mich im Alltag.</label>
@@ -167,12 +199,12 @@
 
     <section class="section section--tint" id="zentren">
       <div class="container">
-        <div class="section-header">
+        <div class="section-header reveal">
           <p class="eyebrow">Versorgung</p>
           <h2>Zentrum in Ihrer Nähe finden</h2>
           <p class="lead">Filtern Sie Zentren nach Region und finden Sie passende Anlaufstellen für die nächste Behandlungsetappe.</p>
         </div>
-        <div class="card card--feature map-widget">
+        <div class="card card--feature map-widget reveal">
           <label for="citySelect">Region auswählen:</label>
           <select id="citySelect">
             <option value="alle">Alle Regionen</option>
@@ -211,13 +243,13 @@
 
     <section class="section section--tint section-cta" id="beratung">
       <div class="container">
-        <div class="card card--split">
-          <div>
+        <div class="card card--split reveal">
+          <div class="reveal">
             <p class="eyebrow">Nächster Schritt</p>
             <h2>Beratung anfragen</h2>
             <p class="lead">Vereinbaren Sie ein unverbindliches Gespräch zur Einordnung Ihrer Situation und möglicher Wege zur Neurostimulation.</p>
           </div>
-          <form id="consultingForm" class="form-grid">
+          <form id="consultingForm" class="form-grid reveal">
             <div class="form-field">
               <label class="form-label" for="consultingName">Name</label>
               <input id="consultingName" type="text" required>
