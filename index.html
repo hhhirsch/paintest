@@ -59,7 +59,7 @@
           <h2>Interaktive Checkliste: Komme ich für Neurostimulation in Frage?</h2>
           <p class="lead">Prüfen Sie in wenigen Schritten, ob ein Gespräch über Neurostimulation für Sie sinnvoll sein könnte.</p>
         </div>
-        <form id="eligibilityForm" class="card checklist">
+        <form id="eligibilityForm" class="card card--feature checklist">
           <label><input type="checkbox" name="criteria" value="1"> Ich habe seit mehr als 3 Monaten neuropathische Schmerzen.</label>
           <label><input type="checkbox" name="criteria" value="1"> Medikamente bringen keine ausreichende Linderung.</label>
           <label><input type="checkbox" name="criteria" value="1"> Nebenwirkungen der Medikamente belasten mich im Alltag.</label>
@@ -77,7 +77,7 @@
         <h2>Interaktive Wegstrecke: Opiate vs. Neurostimulation</h2>
         <p class="lead">Bewegen Sie den Regler und vergleichen Sie typische Verläufe über 24 Monate.</p>
       </div>
-      <div class="journey card">
+      <div class="journey card card--feature">
         <label for="journeyRange">Zeitpunkt: <span id="journeyMonth">12</span> Monate</label>
         <input type="range" min="1" max="24" value="12" id="journeyRange">
         <div class="journey-bars">
@@ -102,7 +102,7 @@
           <h2>Interaktive Karte: Behandlungszentren finden</h2>
           <p class="lead">Filtern Sie Zentren nach Region und finden Sie passende Anlaufstellen für die nächste Behandlungsetappe.</p>
         </div>
-        <div class="card map-widget">
+        <div class="card card--feature map-widget">
           <label for="citySelect">Region auswählen:</label>
           <select id="citySelect">
             <option value="alle">Alle Regionen</option>
@@ -125,8 +125,8 @@
         <h2>Ask the Expert</h2>
         <p class="lead">Direkte Fragen an das Expertenteam sowie die wichtigsten Antworten auf häufige Anliegen.</p>
       </div>
-      <div class="grid-2">
-        <article class="card">
+      <article class="card card--split">
+        <div>
           <h3>Ihre Frage an unser Expertenteam</h3>
           <form id="expertForm" class="stack">
             <label>Frage
@@ -138,14 +138,14 @@
             <button class="button" type="submit">Frage senden</button>
             <p id="expertMessage" class="result"></p>
           </form>
-        </article>
-        <article class="card">
+        </div>
+        <div>
           <h3>Häufige Fragen</h3>
           <details><summary>Ist die Neurostimulation reversibel?</summary><p>Ja. Das System kann angepasst oder entfernt werden.</p></details>
           <details><summary>Wie schnell spüre ich eine Wirkung?</summary><p>Häufig bereits in der Testphase, individuell unterschiedlich.</p></details>
           <details><summary>Kann ich Medikamente reduzieren?</summary><p>Viele Patienten berichten eine deutliche Reduktion – in Abstimmung mit dem Arzt.</p></details>
-        </article>
-      </div>
+        </div>
+      </article>
     </section>
 
     <section class="section section-muted" id="stories">
@@ -193,7 +193,7 @@
           <h2>Beratung anfragen</h2>
           <p class="lead">Vereinbaren Sie einen Termin – wir kontaktieren Sie für ein unverbindliches Gespräch.</p>
         </div>
-        <form id="consultingForm" class="card consult-form">
+        <form id="consultingForm" class="card card--feature consult-form">
           <label>Name <input type="text" required></label>
           <label>Telefon <input type="tel" required></label>
           <label>E-Mail <input type="email" required></label>
