@@ -155,9 +155,18 @@ h3 {
   margin-top: var(--space-5);
 }
 
-.section { padding: var(--space-8) 0; }
-.section-muted { background: #f2f4f7; }
-.section-cta { background: linear-gradient(170deg, #ebf3ff, #ecfbf7); }
+.section {
+  padding: var(--space-8) 0;
+  background: var(--bg);
+}
+
+.section--tint {
+  background: color-mix(in srgb, var(--primary) 3%, var(--bg));
+}
+
+.section-cta {
+  background: color-mix(in srgb, var(--primary) 4%, var(--bg));
+}
 
 .section-header {
   margin-bottom: var(--space-6);
