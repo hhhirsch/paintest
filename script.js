@@ -1,3 +1,13 @@
+const topNav = document.getElementById("topNav");
+
+function syncTopNavState() {
+  const isScrolled = window.scrollY > 20;
+  topNav?.classList.toggle("is-scrolled", isScrolled);
+}
+
+window.addEventListener("scroll", syncTopNavState, { passive: true });
+syncTopNavState();
+
 const eligibilityButton = document.getElementById("checkEligibility");
 const eligibilityResult = document.getElementById("eligibilityResult");
 
