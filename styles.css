@@ -33,6 +33,11 @@
   --shadow-sm: 0 8px 24px rgba(0, 0, 0, 0.24);
   --shadow-md: 0 20px 45px rgba(0, 0, 0, 0.3);
   --card-shadow: 0 14px 30px rgba(2, 8, 18, 0.36);
+
+  --gradient-hero: linear-gradient(145deg, color-mix(in srgb, var(--surface-elevated) 88%, #0b1a32), color-mix(in srgb, var(--surface) 72%, #06152c));
+  --glow-primary: 0 0 0 1px color-mix(in srgb, var(--teal) 30%, transparent), 0 24px 44px color-mix(in srgb, var(--teal) 16%, transparent);
+  --icon-bg: color-mix(in srgb, var(--teal) 10%, transparent);
+  --motion-fast: 180ms ease;
 }
 
 * { box-sizing: border-box; }
@@ -123,7 +128,7 @@ a { color: inherit; }
   height: 2px;
   background: var(--text);
   border-radius: 999px;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: transform var(--motion-fast), opacity var(--motion-fast);
 }
 
 .nav-toggle span:nth-child(1) { transform: translateY(-6px); }
@@ -142,7 +147,7 @@ a { color: inherit; }
 
 .nav-links a {
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color var(--motion-fast);
 }
 
 .nav-links a:hover { color: var(--text); }
@@ -150,6 +155,10 @@ a { color: inherit; }
 .hero-content {
   padding: clamp(4rem, 10vw, 8rem) 0 var(--space-8);
   position: relative;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: var(--space-6);
+  align-items: center;
 }
 
 .hero-wave {
@@ -277,6 +286,7 @@ h3 {
   line-height: 1.1;
   text-decoration: none;
   cursor: pointer;
+  transition: filter var(--motion-fast), transform var(--motion-fast);
 }
 
 .btn:hover { filter: brightness(1.07); }
@@ -307,9 +317,44 @@ textarea:focus-visible,
   outline-offset: 2px;
 }
 
-.icon-grid .icon-card { text-align: left; }
- .icon-wrap {
-  --icon-size: 56px;
+/* Reusable UI components */
+.hero-media {
+  margin: 0;
+}
+
+.visual-card {
+  margin: 0;
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px solid color-mix(in srgb, var(--teal) 22%, var(--border));
+  background: var(--gradient-hero);
+  box-shadow: var(--glow-primary);
+}
+
+.visual-card img {
+  width: 100%;
+  display: block;
+  border-radius: calc(var(--radius-md) - 6px);
+  border: 1px solid color-mix(in srgb, var(--teal) 18%, transparent);
+}
+
+.visual-card figcaption {
+  color: var(--muted);
+  font-size: var(--small);
+  margin-top: var(--space-2);
+}
+
+.icon-card {
+  text-align: left;
+  transition: transform var(--motion-fast), border-color var(--motion-fast);
+}
+
+.icon-card:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--teal) 36%, var(--border));
+}
+
+.icon-wrap {
   width: 64px;
   height: 64px;
   display: grid;
@@ -317,20 +362,34 @@ textarea:focus-visible,
   margin-bottom: var(--space-3);
   border-radius: var(--radius-sm);
   border: 1px solid color-mix(in srgb, var(--teal) 34%, var(--border));
-  background: color-mix(in srgb, var(--teal) 10%, transparent);
+  background: var(--icon-bg);
 }
 
-.icon-wrap .icon-line {
-  width: var(--icon-size);
-  height: var(--icon-size);
-  fill: none;
+.icon-wrap img {
+  width: 56px;
+  height: 56px;
   stroke: var(--teal);
+  fill: none;
   stroke-width: 2.25;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
-.evidence-wrap { display: grid; place-items: center; }
+.stat-card {
+  display: grid;
+  align-content: start;
+  gap: var(--space-1);
+}
+
+.stat-card__value {
+  margin: 0;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  line-height: 1;
+  color: var(--teal);
+  font-weight: 800;
+}
+
+.evidence-wrap { display: grid; place-items: center; margin-top: var(--space-5); }
 .evidence-ring {
   --value: 83;
   text-align: center;
@@ -468,13 +527,23 @@ textarea::placeholder { color: color-mix(in srgb, var(--muted) 75%, white 5%); }
     opacity: 0;
     pointer-events: none;
     transform: translateY(-8px);
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    transition: opacity var(--motion-fast), transform var(--motion-fast);
   }
 
   .top-nav.is-open .nav-links {
     opacity: 1;
     pointer-events: auto;
     transform: translateY(0);
+  }
+}
+
+@media (max-width: 860px) {
+  .hero-content {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-media {
+    max-width: 560px;
   }
 }
 
