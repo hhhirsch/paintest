@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Neurolife – Aufklärung zu neuropathischem Schmerz</title>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -11,6 +13,7 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <svg class="icon-symbols" aria-hidden="true" focusable="false">
     <symbol id="icon-listen" viewBox="0 0 64 64">
       <path d="M32 8a20 20 0 0 0-20 20v10a8 8 0 0 0 8 8h4V30a8 8 0 1 1 16 0v16h4a8 8 0 0 0 8-8V28A20 20 0 0 0 32 8Z"/>
@@ -66,7 +69,7 @@
         <h1>Klarheit bei neuropathischen Schmerzen – modern erklärt, medizinisch eingeordnet, direkt umsetzbar.</h1>
         <p class="lead">
           Verstehen Sie Ursachen und Therapieoptionen in wenigen Minuten, prüfen Sie Ihre Eignung strukturiert
-          und finden Sie passende Behandlungszentren. So gehen Sie vorbereitet in das nächste Gespräch mit dem Behandlungsteam.
+          und finden Sie passende Behandlungszentren. So gehen Sie vorbereitet in das nächste Gespräch mit dem <abbr title="Ärzte, Pflegekräfte und Therapeuten">Behandlungsteam</abbr>.
         </p>
         <div class="hero-actions">
           <a href="#checkliste" class="btn btn--primary">Eignung testen</a>
@@ -78,7 +81,16 @@
     </div>
   </header>
 
-  <main>
+  <aside class="disclaimer-banner" role="complementary" aria-label="Wichtiger Hinweis">
+    <div class="container">
+      <p>
+        <strong>Wichtig:</strong> Diese Informationen ersetzen keine medizinische Beratung. 
+        Bei Fragen zu Ihrer Gesundheit wenden Sie sich bitte an Ihr Behandlungsteam.
+      </p>
+    </div>
+  </aside>
+
+  <main id="main-content" role="main">
     <section class="section container" id="how-it-works">
       <div class="section-header">
         <p class="eyebrow">How it works</p>
@@ -301,6 +313,31 @@
         </div>
       </div>
     </section>
+
+    <section class="section container" id="glossar">
+      <div class="section-header">
+        <p class="eyebrow">Glossar</p>
+        <h2>Fachbegriffe einfach erklärt</h2>
+      </div>
+      <dl class="glossary-list card card--feature">
+        <div class="glossary-item">
+          <dt>Neuropathischer Schmerz</dt>
+          <dd>Schmerzen, die durch eine Schädigung oder Erkrankung des Nervensystems entstehen.</dd>
+        </div>
+        <div class="glossary-item">
+          <dt>Neurostimulation</dt>
+          <dd>Therapieverfahren, bei dem elektrische Impulse zur Schmerzlinderung eingesetzt werden.</dd>
+        </div>
+        <div class="glossary-item">
+          <dt>WCAG 2.1 Level AA</dt>
+          <dd>Internationale Standards für barrierefreie Webinhalte, die sicherstellen, dass digitale Angebote für alle Menschen zugänglich sind.</dd>
+        </div>
+        <div class="glossary-item">
+          <dt>Chronische Schmerzen</dt>
+          <dd>Schmerzen, die länger als 3 Monate andauern und den Alltag beeinträchtigen.</dd>
+        </div>
+      </dl>
+    </section>
   </main>
 
   <div class="mobile-cta-bar" aria-label="Schnellaktionen">
@@ -309,10 +346,44 @@
   </div>
 
   <footer class="footer">
-    <div class="container">
-      <p>© 2026 Neurolife • Demo-Konzept zur Patientenaufklärung</p>
+    <div class="container footer-grid">
+      <div class="footer-section">
+        <h3>Rechtliches</h3>
+        <ul class="footer-links">
+          <li><a href="#datenschutz">Datenschutzerklärung</a></li>
+          <li><a href="#impressum">Impressum</a></li>
+          <li><a href="#disclaimer">Haftungsausschluss</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Notfall & Support</h3>
+        <p class="emergency-notice">
+          <strong>Bei medizinischen Notfällen:</strong><br>
+          Wählen Sie <a href="tel:112" class="emergency-link">112</a> oder wenden Sie sich an Ihren behandelnden Arzt.
+        </p>
+      </div>
+      <div class="footer-section">
+        <p>© 2026 Neurolife • Demo-Konzept zur Patientenaufklärung</p>
+        <p class="disclaimer-badge">
+          ⚠️ Diese Website dient der Information und ersetzt keine ärztliche Beratung.
+        </p>
+      </div>
     </div>
   </footer>
+
+  <div id="cookieBanner" class="cookie-banner" role="dialog" aria-labelledby="cookieTitle" aria-describedby="cookieDesc" hidden>
+    <div class="cookie-content">
+      <h3 id="cookieTitle">Datenschutz & Cookies</h3>
+      <p id="cookieDesc">
+        Wir verwenden technisch notwendige Cookies, um diese Website bereitzustellen. 
+        <a href="#datenschutz">Mehr erfahren</a>
+      </p>
+      <div class="cookie-actions">
+        <button id="acceptCookies" class="btn btn--primary">Verstanden</button>
+        <button id="declineCookies" class="btn btn--secondary">Nur notwendige</button>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>

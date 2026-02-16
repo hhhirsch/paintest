@@ -302,7 +302,7 @@ function handleAnswer(answer) {
   transitionToStep(currentStep + 1, answerYesButton);
 }
 
-startWizardButton?.addEventListener("click", () => {
+function startWizard() {
   if (isWizardTransitioning) {
     return;
   }
@@ -320,8 +320,10 @@ startWizardButton?.addEventListener("click", () => {
     }
   }
 
-  transitionToStep(currentStep, answerYesButton);
-});
+  transitionToStep(currentStep, wizardQuestion);
+}
+
+startWizardButton?.addEventListener("click", startWizard);
 
 answerYesButton?.addEventListener("click", () => handleAnswer(true));
 answerNoButton?.addEventListener("click", () => handleAnswer(false));
@@ -384,8 +386,37 @@ const expertForm = document.getElementById("expertForm");
 const expertMessage = document.getElementById("expertMessage");
 expertForm?.addEventListener("submit", (event) => {
   event.preventDefault();
-  expertMessage.textContent = "Danke! Ihre Frage wurde an unser Expertenteam gesendet.";
-  expertMessage.style.color = "#35d7c8";
+  
+  const nameInput = document.getElementById("expertName");
+  const questionInput = document.getElementById("expertQuestion");
+  
+  // Validierung
+  if (!nameInput?.value.trim()) {
+    nameInput?.setAttribute("aria-invalid", "true");
+    expertMessage.textContent = "Bitte geben Sie Ihren Namen ein.";
+    expertMessage.setAttribute("role", "alert");
+    expertMessage.classList.remove("success");
+    expertMessage.classList.add("error");
+    nameInput?.focus();
+    return;
+  }
+  
+  if (!questionInput?.value.trim() || questionInput.value.trim().length < 10) {
+    questionInput?.setAttribute("aria-invalid", "true");
+    expertMessage.textContent = "Bitte beschreiben Sie Ihre Frage ausführlicher (mind. 10 Zeichen).";
+    expertMessage.setAttribute("role", "alert");
+    expertMessage.classList.remove("success");
+    expertMessage.classList.add("error");
+    questionInput?.focus();
+    return;
+  }
+  
+  // Erfolg
+  nameInput?.removeAttribute("aria-invalid");
+  questionInput?.removeAttribute("aria-invalid");
+  expertMessage.textContent = "✓ Ihre Frage wurde übermittelt. Wir melden uns in Kürze.";
+  expertMessage.classList.add("success");
+  expertMessage.classList.remove("error");
   expertForm.reset();
 });
 
@@ -393,8 +424,38 @@ const consultingForm = document.getElementById("consultingForm");
 const consultingMessage = document.getElementById("consultingMessage");
 consultingForm?.addEventListener("submit", (event) => {
   event.preventDefault();
-  consultingMessage.textContent = "Vielen Dank! Wir melden uns zeitnah zur Terminabstimmung.";
-  consultingMessage.style.color = "#35d7c8";
+  
+  const nameInput = document.getElementById("consultingName");
+  const emailInput = document.getElementById("consultingEmail");
+  
+  // Validierung
+  if (!nameInput?.value.trim()) {
+    nameInput?.setAttribute("aria-invalid", "true");
+    consultingMessage.textContent = "Bitte geben Sie Ihren Namen ein.";
+    consultingMessage.setAttribute("role", "alert");
+    consultingMessage.classList.remove("success");
+    consultingMessage.classList.add("error");
+    nameInput?.focus();
+    return;
+  }
+  
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailInput?.value.trim() || !emailPattern.test(emailInput.value.trim())) {
+    emailInput?.setAttribute("aria-invalid", "true");
+    consultingMessage.textContent = "Bitte geben Sie eine gültige E-Mail-Adresse ein.";
+    consultingMessage.setAttribute("role", "alert");
+    consultingMessage.classList.remove("success");
+    consultingMessage.classList.add("error");
+    emailInput?.focus();
+    return;
+  }
+  
+  // Erfolg
+  nameInput?.removeAttribute("aria-invalid");
+  emailInput?.removeAttribute("aria-invalid");
+  consultingMessage.textContent = "✓ Vielen Dank! Wir melden uns zeitnah zur Terminabstimmung.";
+  consultingMessage.classList.add("success");
+  consultingMessage.classList.remove("error");
   consultingForm.reset();
 });
 
@@ -429,3 +490,23 @@ if (revealElements.length) {
     });
   }
 }
+
+// Cookie-Banner Management
+const cookieBanner = document.getElementById("cookieBanner");
+const acceptBtn = document.getElementById("acceptCookies");
+const declineBtn = document.getElementById("declineCookies");
+
+// Banner anzeigen wenn noch keine Präferenz gesetzt
+if (!localStorage.getItem("cookieConsent")) {
+  cookieBanner?.removeAttribute("hidden");
+}
+
+acceptBtn?.addEventListener("click", () => {
+  localStorage.setItem("cookieConsent", "all");
+  cookieBanner?.setAttribute("hidden", "");
+});
+
+declineBtn?.addEventListener("click", () => {
+  localStorage.setItem("cookieConsent", "necessary");
+  cookieBanner?.setAttribute("hidden", "");
+});
